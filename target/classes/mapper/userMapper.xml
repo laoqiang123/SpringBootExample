@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.dao.UserDao">
+<!--
+	这里采用的是默认的结果映射，所以要保证字段名和Bean 的名称一致
+	给字段起别名可以使用as
+	这里的id 名称要和你dao 接口的方法对应一致
+-->
+	<select id="getUserById" parameterType="long" resultType="user">
+		select id,name as userName,sex,note from user where id =#{id}
+	</select>
+	<insert id="insertUser" parameterType="user">
+		insert into user(name,sex,note)values (#{userName},#{sex},#{note})
+	</insert>
+	<delete id="deleteUser" parameterType="user">
+		delete from user where id=#{id}
+	</delete>
+
+</mapper>
