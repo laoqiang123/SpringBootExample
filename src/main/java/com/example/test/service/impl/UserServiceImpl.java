@@ -5,6 +5,8 @@ import com.example.test.pojo.User;
 import com.example.test.service.UserService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
@@ -23,22 +25,18 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 	@Autowired
 	private UserDao userDao;
 	@Override
-	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.NESTED)
+	@CachePut(value = "redisCache",key="'redis_user_'+#result.id")
+    //将插入的user 缓存
 	public int insertUser(User user) throws Exception {
-		if("ppp".equals(user.getUserName())){
-			throw  new RuntimeException("ggg");
-		}
 		return userDao.insertUser(user);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.NESTED)
 	public int deleteUser(User user) {
 		return userDao.deleteUser(user);
 	}
 
 	@Override
-	@Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.NESTED)
 	public int insertUsers(List<User> users) {
 		UserService userService = applicationContext.getBean(UserService.class);
 		for(int i=0;i<users.size();i++){
@@ -49,6 +47,39 @@ public class UserServiceImpl implements UserService, ApplicationContextAware {
 			}
 		}
         return 0;
+	}
+
+	@Override
+	@CachePut(value = "redisCache",key = "'redis_user_'+#id")
+	//取参数id的user
+	public User getUserById(Long id) {
+		return userDao.getUserById(id);
+	}
+
+	@Override
+	@CacheEvict(value="redisCache",key="'redis_user_'+#id",beforeInvocation = false)
+	public int deleteUser(Long id) {
+		return userDao.deleteUser(id);
+	}
+
+	@Override
+	public List<User> findUsers(String userName, String note) {
+		return userDao.findUsers(userName,note);
+	}
+
+	@Override
+	@CachePut(value = "redisCache",condition = "#result!='null'",key = "'redis_user_'+#id")
+	//如果该方法执行的为null，则不缓存
+	public User updateUser(Long id,String userName) {
+		//此处getuser 方法，方法缓存注解失败
+		//执行sql，将查询数据库最新数据
+		User user = this.getUserById(id);
+		if(user==null){
+			return null;
+		}
+		user.setUserName(userName);
+		userDao.updateUser(user);
+		return user;
 	}
 
 	@Override

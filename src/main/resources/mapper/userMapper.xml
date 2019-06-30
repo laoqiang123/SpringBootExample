@@ -16,5 +16,22 @@
 	<delete id="deleteUser" parameterType="user">
 		delete from user where id=#{id}
 	</delete>
+	<update id="updateUser">
+		update user
+		<set>
+		<if test="userName !=null">name=#{userName},</if>
+		<if test="note !=null">note={note}</if>
+		</set>
+		where id=#{id}
+	</update>
+<!--返回集合对象，resulttype 是1一个对象-->
+	<select id="findUsers" parameterType="user" resultType="user">
+       select id,name as userName,note from user
+		<where>
+			<if test="userName !=null">name=#{userName},</if>
+			<if test="note !=null">note={note}</if>
+		</where>
+
+	</select>
 
 </mapper>

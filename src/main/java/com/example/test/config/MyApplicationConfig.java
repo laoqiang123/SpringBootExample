@@ -5,6 +5,7 @@ import com.example.test.example.MyApsect;
 import com.example.test.example.MyApsect2;
 import com.example.test.example.ShowCondition;
 import com.example.test.example.Test1;
+import com.example.test.message.RedisMessageListener;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
@@ -19,6 +20,11 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 
 import com.example.test.service.impl.HelloServiceImpl;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.Topic;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -29,6 +35,13 @@ import javax.sql.DataSource;
 public class MyApplicationConfig {
 	@Autowired
 	private Environment environment;
+	@Autowired
+	private RedisConnectionFactory redisConnectionFactory;
+
+	@Autowired
+	private RedisMessageListener redisMessageListener;
+
+
 
 
 	@Bean
@@ -85,4 +98,25 @@ public class MyApplicationConfig {
 	   return mapperScannerConfigurer;
 
 	}*/
+	//创建线程池，等待处理redis 消息
+    @Bean
+	public ThreadPoolTaskScheduler getThreadPoolTaskScheduler(){
+		ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+		if(threadPoolTaskScheduler!=null){
+			return threadPoolTaskScheduler;
+		}
+		threadPoolTaskScheduler.setPoolSize(20);
+		return threadPoolTaskScheduler;
+	}
+	//定义redis 监听容器
+    @Bean
+	public RedisMessageListenerContainer getRedisMessageListenerContainer(){
+      RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
+      redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
+      redisMessageListenerContainer.setTaskExecutor(getThreadPoolTaskScheduler());
+		Topic topic = new ChannelTopic("topic1");
+		//使用监听器监听redis 的topic 的信息
+		redisMessageListenerContainer.addMessageListener(redisMessageListener,topic);
+		return redisMessageListenerContainer;
+	}
 }

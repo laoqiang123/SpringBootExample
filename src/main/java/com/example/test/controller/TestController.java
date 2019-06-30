@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -50,6 +52,9 @@ public class TestController {
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+
+	@Autowired
+	private Test13 test13;
 
 	@RequestMapping(value = "/hello")
 	public String testMethod() throws Exception {
@@ -159,11 +164,32 @@ public class TestController {
 				operations.watch("test");//监控这个key
 				operations.multi();//开启事务,将下面redis 的命令存入队列，下面并不会执行
 				operations.opsForValue().set("test2","test2");
-				operations.opsForValue().increment("test",1);
-				return operations.exec();//执行事务中操作，如果监控的test 发生变化，则不执行事务
+				//operations.opsForValue().increment("test",1);
+				return operations.exec();//执行事务中操作，如果监控的test 发生变化，则不执行事务,否则就正常执行上面的操作
 			}
 		});
 
+	}
+@RequestMapping("/pipeline")
+	public void testPipeline(){
+		long start = System.currentTimeMillis();
+		stringRedisTemplate.executePipelined(new SessionCallback() {
+			@Override
+			public Object execute(RedisOperations operations) throws DataAccessException {
+				for(int i=0;i<1000;i++){
+
+					operations.opsForValue().set("test"+i,i+"KKKK");
+				}
+				return null;
+			}
+		});
+		long end = System.currentTimeMillis();
+		System.out.println(end-start);
+
+	}
+	@RequestMapping("show2")
+	public void show2(){
+		stringRedisTemplate.convertAndSend("topic1","你好");
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.example.test.pojo;
 
 import org.apache.ibatis.type.Alias;
+
+import java.io.Serializable;
+
 //这个注解是起别名的作用，后边使用的时候就不需要全限名，简单省事
 @Alias("user")
-public class User {
+public class User implements Serializable {
 	private Long id;
 	private String userName;
 	private String note;
