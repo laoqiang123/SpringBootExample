@@ -19,6 +19,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
@@ -191,5 +192,33 @@ public class TestController {
 	public void show2(){
 		stringRedisTemplate.convertAndSend("topic1","你好");
 	}
+    @RequestMapping("/getuser/{id}")
+	public User getUser(@PathVariable  Long id){
+		return userService.getUserById(id);
+	}
+    @RequestMapping("/insert/{userName}/{note}")
+	public User insertUser(@PathVariable  String userName,@PathVariable String note) throws Exception {
+		  User user = new User();
+		  user.setUserName(userName);
+		  user.setNote(note);
+		  userService.insertUser(user);
+          return user;
+	}
+    @RequestMapping("/finduser/{userName}/{note}")
+	public List<User> findUser(@PathVariable  String userName,@PathVariable  String note){
+		return userService.findUsers(userName,note);
+	}
+    @RequestMapping("/updateuser/{id}/{userName}")
+	public void updateUser(Long id,String userName){
+		userService.updateUser(id,userName);
+	}
+    @RequestMapping("/deleteuser/{id}")
+	public void deleteUser(	Long id){
+		User user = new User();
+		user.setId(id);
+		userService.deleteUser(user);
+	}
+
+
 
 }
