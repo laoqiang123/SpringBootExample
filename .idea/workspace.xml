@@ -11,20 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d12ca8a9-bfde-4ca0-88c5-76ee1e2f604c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/dao/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/example/MyApsect2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/example/Test6.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/pojo/SexEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/pojo/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/service/UserBatchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/service/impl/UserBatchServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/test/util/SexEnumTypeHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/userMapper.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Test/src/com/example/test/YieldTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/test/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/test/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
@@ -44,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/test/controller/TestController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1729">
-              <caret line="209" column="5" lean-forward="true" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+              <caret line="209" column="5" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
               <folding>
                 <element signature="e#6634#6635#0" expanded="true" />
                 <element signature="e#6690#6691#0" expanded="true" />
@@ -60,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/test/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+            <state relative-caret-position="100">
+              <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -404,12 +392,12 @@
       <workItem from="1561727851401" duration="1710000" />
       <workItem from="1561766874879" duration="15766000" />
       <workItem from="1561855406488" duration="11751000" />
-      <workItem from="1561982909464" duration="2633000" />
+      <workItem from="1561982909464" duration="3287000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246681000" />
+    <option name="totallyTimeSpent" value="247335000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -986,7 +974,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/test/controller/TestController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1729">
-          <caret line="209" column="5" lean-forward="true" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+          <caret line="209" column="5" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
           <folding>
             <element signature="e#6634#6635#0" expanded="true" />
             <element signature="e#6690#6691#0" expanded="true" />
@@ -1000,8 +988,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/test/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        <state relative-caret-position="100">
+          <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
         </state>
       </provider>
     </entry>
