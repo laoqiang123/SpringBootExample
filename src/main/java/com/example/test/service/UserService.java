@@ -10,10 +10,10 @@ public interface UserService {
 	int insertUser(User user) throws Exception;
 	int deleteUser(User user);
 	int insertUsers(List<User> users) throws Exception;
-	User getUserById(Long id);
-	int deleteUser(Long id);
+	User getUserById(Integer id);
+	int deleteUser(Integer id);
 	List<User> findUsers(String userName,String note);
-	User updateUser(Long id,String userName);
+	User updateUser(Integer id,String userName);
 
 
 }

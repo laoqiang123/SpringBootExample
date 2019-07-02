@@ -209,11 +209,11 @@ public class TestController {
 		return userService.findUsers(userName,note);
 	}
     @RequestMapping("/updateuser/{id}/{userName}")
-	public void updateUser(Long id,String userName){
+	public void updateUser(Integer id,String userName){
 		userService.updateUser(id,userName);
 	}
     @RequestMapping("/deleteuser/{id}")
-	public void deleteUser(	Long id){
+	public void deleteUser(Integer id){
 		User user = new User();
 		user.setId(id);
 		userService.deleteUser(user);

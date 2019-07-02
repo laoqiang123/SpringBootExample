@@ -25,7 +25,7 @@ public class UserBatchServiceImpl implements UserBatchService {
 		for(int i =0;i<users.size();i++){
 			if(i==0){
 				User user = new User();
-				user.setId(68L);
+				user.setId(68);
 				userService.deleteUser(user);
 			}
 			try {
