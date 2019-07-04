@@ -1,6 +1,8 @@
 package com.example.test.controller;
 
+import com.example.test.converter.StringToUser;
 import com.example.test.example.*;
+import com.example.test.form.UserForm;
 import com.example.test.pojo.SexEnum;
 import com.example.test.pojo.User;
 import com.example.test.service.TestService;
@@ -14,16 +16,26 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.convert.StringToDataTypeConverter;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 
+import javax.validation.Valid;
+import javax.xml.crypto.Data;
 import java.util.*;
 
 @RestController
@@ -193,7 +205,7 @@ public class TestController {
 		stringRedisTemplate.convertAndSend("topic1","你好");
 	}
     @RequestMapping("/getuser/{id}")
-	public User getUser(@PathVariable  Long id){
+	public User getUser(@PathVariable  Integer id){
 		return userService.getUserById(id);
 	}
     @RequestMapping("/insert/{userName}/{note}")
@@ -212,11 +224,15 @@ public class TestController {
 	public void updateUser(Integer id,String userName){
 		userService.updateUser(id,userName);
 	}
-    @RequestMapping("/deleteuser/{id}")
+    @RequestMapping(value = "/deleteuser/{id}")
 	public void deleteUser(Integer id){
 		User user = new User();
 		user.setId(id);
 		userService.deleteUser(user);
+	}
+    @RequestMapping("/show3")
+	public void show3(@Valid  UserForm userForm, Errors errors){
+
 	}
 
 

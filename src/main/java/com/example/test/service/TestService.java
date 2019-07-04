@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.dao.TestDao;
 public interface TestService {
-   User findUserById(Long id);
+   User findUserById(Integer id);
 
 
 

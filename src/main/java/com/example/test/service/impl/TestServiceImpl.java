@@ -15,7 +15,7 @@ public class TestServiceImpl implements TestService {
 	private UserDao userDao;
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED,timeout = 5)
-	public User findUserById(Long id) {
+	public User findUserById(Integer id) {
 		return userDao.getUserById(id);
 	}
 }
